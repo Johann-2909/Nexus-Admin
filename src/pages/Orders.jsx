@@ -1,6 +1,6 @@
 function Orders() {
   return (
-    <div className="orders">
+    <div className="p-4">
       <h1>Orders</h1>
     </div>
   );

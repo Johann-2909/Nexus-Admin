@@ -1,6 +1,6 @@
 function Products() {
   return (
-    <div className="products">
+    <div className="p-4">
       <h1>Products</h1>
     </div>
   );

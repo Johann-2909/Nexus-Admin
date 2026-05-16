@@ -1,7 +1,7 @@
-function Navbar () {
+function Navbar() {
   return (
-    <nav className="navbar">
-      <h1>E-Commerce Admin</h1>
+    <nav className="bg-gray-900 text-white p-4 flex items-center">
+      <h1 className="text-xl font-bold">Nexus Admin</h1>
     </nav>
   );
 }
