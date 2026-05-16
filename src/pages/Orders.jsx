@@ -32,7 +32,7 @@ const orders = [
 function Orders() {
   return (
     <div className="p-4">
-      <h1>Orders</h1>
+      <h1 className="text-2xl font-bold">Orders</h1>
       <table className="w-full mt-4 border-collapse">
         <thead>
           <tr className="bg-gray-200">
@@ -47,7 +47,21 @@ function Orders() {
             <tr key={order.id} className="border-t">
               <td className="p-2">{order.customer}</td>
               <td className="p-2">{order.date}</td>
-              <td className="p-2">{order.status}</td>
+              <td className="p-2">
+                <span
+                  className={`px-2 py-1 rounded-full text-sm font-medium ${
+                    order.status === "Pending"
+                      ? "bg-yellow-100 text-yellow-800"
+                      : order.status === "Shipped"
+                        ? "bg-blue-100 text-blue-800"
+                        : order.status === "Delivered"
+                          ? "bg-green-100 text-green-800"
+                          : "bg-red-100 text-red-800"
+                  }`}
+                >
+                  {order.status}
+                </span>
+              </td>
               <td className="p-2">{order.total}</td>
             </tr>
           ))}

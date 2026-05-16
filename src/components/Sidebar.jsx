@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const links = [
   { to: "/", label: "Dashboard" },
@@ -7,20 +7,26 @@ const links = [
 ];
 
 function Sidebar() {
+  const location = useLocation();
+
   return (
     <aside className="w-64 bg-gray-200 p-4 min-h-screen">
-        <ul className="flex flex-col gap-2">
-          {links.map((link) => (
-            <li key={link.to}>
-              <Link
-                to={link.to}
-                className="block p-2 rounded hover:bg-gray-300"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+      <ul className="flex flex-col gap-2">
+        {links.map((link) => (
+          <li key={link.to}>
+            <Link
+              to={link.to}
+              className={`block p-2 rounded ${
+                location.pathname === link.to
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-300"
+              }`}
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </aside>
   );
 }
