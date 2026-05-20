@@ -13,14 +13,51 @@ function Products() {
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
   const [category, setCategory] = useState("");
+  const [editingId, setEditingId] = useState(null);
 
   function addProduct() {
-    const newProduct = { id: Date.now(), name, price, stock, category };
+    const newProduct = {
+      id: Date.now(),
+      name,
+      price: parseFloat(price),
+      stock: parseInt(stock),
+      category,
+    };
     setProductsList([...productsList, newProduct]);
+    setName("");
+    setPrice("");
+    setStock("");
+    setCategory("");
   }
 
   function deleteProduct(id) {
     setProductsList(productsList.filter((product) => product.id !== id));
+  }
+
+  function editProduct(id) {
+    const product = productsList.find((p) => p.id === id);
+    setName(product.name);
+    setPrice(product.price);
+    setStock(product.stock);
+    setCategory(product.category);
+    setEditingId(id);
+  }
+
+  function updateProduct() {
+    setProductsList(
+      productsList.map((product) =>
+        product.id === editingId
+          ? {
+              ...product,
+              name,
+              price: parseFloat(price),
+              stock: parseInt(stock),
+              category,
+            }
+          : product,
+      ),
+    );
+    setEditingId(null);
   }
 
   return (
@@ -29,7 +66,11 @@ function Products() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          addProduct();
+          if (editingId) {
+            updateProduct();
+          } else {
+            addProduct();
+          }
         }}
       >
         <div className="mb-4">
@@ -100,7 +141,7 @@ function Products() {
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          Add Product
+          {editingId ? "Update Product" : "Add Product"}
         </button>
       </form>
       <table className="w-full mt-4 border-collapse">
@@ -126,6 +167,12 @@ function Products() {
                   className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600"
                 >
                   Delete
+                </button>
+                <button
+                  onClick={() => editProduct(product.id)}
+                  className="bg-yellow-500 text-white py-1 px-2 rounded hover:bg-yellow-600 ml-2"
+                >
+                  Edit
                 </button>
               </td>
             </tr>
